@@ -1,0 +1,12 @@
+{
+  "opt": {
+    "width": 800,
+    "height": 600,
+    "backgroundColor": "#222"
+  },
+  "customize": {
+    "title": "合并工具",
+    "route": "/home",
+    "isMainWin": true
+  }
+}
