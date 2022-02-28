@@ -15,7 +15,7 @@ import {
 } from 'naive-ui'
 
 import { Snowflake } from '@/util/snowflake';
-import { setLanguage } from "@/renderer/i18n";
+import { setLanguage,i18nt } from "@/renderer/i18n";
 
 import { openDialog } from "@/renderer/common/additional/dialog";
 
@@ -88,7 +88,7 @@ let selectPicPath = () => {
   //@ts-ignore
   openDialog(customize.get().id, {
     defaultPath: picPath.value,
-    title: '请选择图片文件夹',
+    title: i18nt('msg.pic'),
     properties: ['openDirectory', 'promptToCreate']
   }).then(res => {
     if (!res.canceled) {
@@ -101,7 +101,7 @@ let selectOutPath = () => {
   //@ts-ignore
   openDialog(customize.get().id, {
     defaultPath: picPath.value,
-    title: '请选择输出文件夹',
+    title: i18nt('msg.out'),
     properties: ['openDirectory', 'promptToCreate']
   }).then(res => {
     if (!res.canceled) {
@@ -129,10 +129,10 @@ let chak = () => {
 
 let core = () => {
   if (!chak()) {
-    nmessage.error("请正确填选")
+    nmessage.error(i18nt('msg.err'))
     return
   }
-  nmessage.info("开始合并...")
+  nmessage.info(i18nt('msg.start'))
   dip.value = false
   window.ipc.invoke('get-file-path', { path: picPath.value, suf: suf.value }).then(async (res) => {
     let par = []
@@ -144,7 +144,7 @@ let core = () => {
       }
     }
     dip.value = true
-    nmessage.info("合并结束")
+    nmessage.info(i18nt('msg.end'))
   })
 }
 
@@ -171,15 +171,15 @@ async function cre(path: string[]) {
 
   let id = new Snowflake(0n, 0n).nextId()
 
-  window.ipc.invoke('base-seve', { data: changeDpiDataUrl(canvas.toDataURL("image/png"), 300), path: outPath.value, id }).then(res => {
+  window.ipc.invoke('base-seve', { data: changeDpiDataUrl(canvas.toDataURL("image/png"), dpi_const.value), path: outPath.value, id }).then(res => {
     if (!!res) {
       notification.success({
-        title: '合并成功',
+        title: i18nt('msg.sus'),
         content: `${outPath.value}/${id}.jpg`
       })
     } else {
       notification.error({
-        title: '合并失败',
+        title: i18nt('msg.fid'),
         content: `${outPath.value}/${id}.jpg`
       })
     }
