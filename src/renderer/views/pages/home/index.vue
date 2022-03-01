@@ -15,7 +15,7 @@ import {
 } from 'naive-ui'
 
 import { Snowflake } from '@/util/snowflake';
-import { setLanguage,i18nt } from "@/renderer/i18n";
+import { setLanguage, i18nt } from "@/renderer/i18n";
 
 import { openDialog } from "@/renderer/common/additional/dialog";
 
@@ -138,7 +138,7 @@ let core = () => {
     let par = []
     for (const p of res) {
       par.push(p)
-      if (par.length === 15) {
+      if (par.length === row_const.value * col_const.value) {
         await cre(par)
         par = []
       }
@@ -171,7 +171,7 @@ async function cre(path: string[]) {
 
   let id = new Snowflake(0n, 0n).nextId()
 
-  window.ipc.invoke('base-seve', { data: changeDpiDataUrl(canvas.toDataURL("image/png"), dpi_const.value), path: outPath.value, id }).then(res => {
+  window.ipc.invoke('base-seve', { data: changeDpiDataUrl(canvas.toDataURL("image/png"), dpi_const.value), path: outPath.value, suf: suf.value, id }).then(res => {
     if (!!res) {
       notification.success({
         title: i18nt('msg.sus'),
@@ -186,7 +186,7 @@ async function cre(path: string[]) {
   })
 }
 
-onMounted(async () => {
+onMounted(() => {
   windowShow();
 });
 

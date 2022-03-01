@@ -1,7 +1,7 @@
 {
   "name": "pic-tool",
   "productName": "合并工具",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "electron  ts+vue3 template",
   "main": "dist/main/index.js",
   "author": {
